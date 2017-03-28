@@ -1,0 +1,20 @@
+<apex:page controller="WrapperExample1" showHeader="true" sidebar="true">
+  <apex:form >
+  <apex:pageBlock >
+  <apex:pageBlockTable value="{!Lstwrp}" var="Wrp">
+  <apex:column headerValue="CheckBox"><apex:inputCheckbox value="{!Wrp.Checkbox}"/></apex:column>
+  <apex:column headerValue="SLNO"><apex:OutputText value="{!Wrp.SLNO}"/></apex:column>
+  <apex:column value="{!Wrp.accs.Name}" headerValue="AccountName"/>
+   <apex:column value="{!Wrp.accs.Active__c}" headerValue="Status"/>
+   <apex:column value="{!Wrp.accs.CustomerPriority__c}" headerValue="Priority"/>
+    <apex:column value="{!Wrp.accs.Phone}" headerValue="Phone"/>
+  </apex:pageBlockTable>
+  
+  <apex:pageBlockButtons >
+  <apex:commandButton value="Select" action="{!redirectSelectAcc}"/>
+  </apex:pageBlockButtons>
+  
+</apex:pageBlock>  
+  </apex:form>
+</apex:page>
+             

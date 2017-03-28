@@ -1,0 +1,56 @@
+public class WrapperExample1{
+
+public List<WrapperAccountCheckbox> Lstwrp {get;set;}
+public List<WrapperAccountCheckbox> Lstwrp_Selected {get;set;}
+public WrapperExample1(){
+Lstwrp =new List<WrapperAccountCheckbox>();
+Lstwrp_Selected=new List<WrapperAccountCheckbox>();
+    List<Account> Acclist = new List<Account>([SELECT Id,Name,Description,Active__c,CustomerPriority__c,Phone FROM Account]);
+    for(Integer i=0;i<Acclist.size();i++){
+    boolean check=false;
+    if(Acclist[i].CustomerPriority__c!=null)
+    {
+    check=true;
+    }
+        Lstwrp.add(new WrapperAccountCheckbox(Check,String.valueOf(i+1),Acclist[i]));
+        }
+       }
+    
+    public Pagereference RedirectSelectAcc(){
+    Lstwrp_Selected=new List<WrapperAccountCheckbox>();
+    for(WrapperAccountCheckbox wrapp:Lstwrp)
+    {
+    if(wrapp.Checkbox==true)
+    {
+    Lstwrp_Selected.add(wrapp);
+      }
+    }
+    PageReference p=Page.WrapperclassSelect_vf;
+    return p;
+    }
+
+public class WrapperAccountCheckbox
+{
+public boolean Checkbox{get;set;}
+public String SLNO {get;set;}
+public Account accs{get;set;}
+
+public WrapperAccountCheckbox(){
+
+
+}
+
+public WrapperAccountCheckbox(boolean c,String s,Account a){
+this.accs=a;
+this.SLNO=s;
+this.Checkbox=c;
+}
+
+public WrapperAccountCheckbox(String s,Account a){
+this.accs=a;
+this.SLNO=s;
+Checkbox=false;
+
+}
+}
+}
