@@ -1,0 +1,38 @@
+@RestResource(urlMapping='/MyFirstRestUrl/*')
+
+global class RestClass{
+  
+@HttpGet
+global static List<Account> firstmeth(){
+string recuri;
+string repaceoperator;
+
+RestRequest receive=RestContext.request;
+recuri=receive.requestURI;
+repaceoperator=recuri.replace('+','');
+List<String> l=repaceoperator.split('/');
+
+system.debug('My replacement operator is.....::::::::::::'+repaceoperator.split('/'));
+
+RestResponse transmitt=RestContext.response;
+
+List<Account> t=[SELECT id,Name,Account.BillingCity From Account WHERE Name LIKE:'%'+l.get(2)+'%' ];
+system.debug('my account records::::::::::::::::::::::::::::::::'+t);
+
+
+
+return t;
+
+}
+
+@HttpPost
+
+global static String secmeth(String name,String phone) {
+        Account account = new Account();
+        account.Name = name;
+        account.phone = phone;
+        insert account;
+        return account.Name;
+
+}
+}
